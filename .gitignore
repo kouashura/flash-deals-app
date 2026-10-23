@@ -54,7 +54,6 @@ android/keystore/
 !.env.example
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
-lib/firebase_options.dart
 firestore.rules.save
 **/*.bak
 **/*.backup
