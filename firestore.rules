@@ -1,0 +1,127 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    function isCourier() {
+      return isSignedIn() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'courier';
+    }
+
+    match /config/{configId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isAdmin();
+      allow update: if isSignedIn() &&
+        request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['rating', 'reviewCount']);
+
+      match /reviews/{reviewId} {
+        allow read: if true;
+        allow create: if isSignedIn() &&
+          request.resource.data.userId == request.auth.uid &&
+          request.resource.data.rating is number &&
+          request.resource.data.rating >= 1 &&
+          request.resource.data.rating <= 5;
+        allow update, delete: if isSignedIn() &&
+          (resource.data.userId == request.auth.uid || isAdmin());
+      }
+    }
+
+    match /categories/{catId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /stores/{storeId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /users/{userId} {
+      allow read: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow create: if isSignedIn() && request.auth.uid == userId;
+      allow update: if isSignedIn() && request.auth.uid == userId;
+      allow delete: if isAdmin();
+
+      match /notifications/{notifId} {
+        allow read, write: if isSignedIn() &&
+          (request.auth.uid == userId || isAdmin());
+      }
+      match /favorites/{favoriteId} {
+        allow read, write: if isSignedIn() && request.auth.uid == userId;
+      }
+      match /addresses/{addressId} {
+        allow read, write: if isSignedIn() && request.auth.uid == userId;
+      }
+      match /payment_methods/{methodId} {
+        allow read, write: if isSignedIn() && request.auth.uid == userId;
+      }
+      match /loyalty_history/{historyId} {
+        allow read, write: if isSignedIn() && request.auth.uid == userId;
+      }
+    }
+
+    match /orders/{orderId} {
+      allow read: if isSignedIn() &&
+        (resource.data.userId == request.auth.uid ||
+         resource.data.courierId == request.auth.uid ||
+         isAdmin() ||
+         isCourier());
+      allow create: if isSignedIn() &&
+        request.resource.data.userId == request.auth.uid;
+      allow update: if isSignedIn() &&
+        (resource.data.userId == request.auth.uid ||
+         resource.data.courierId == request.auth.uid ||
+         isAdmin());
+      allow delete: if false;
+    }
+
+    match /notifications/{notifId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    match /couriers/{courierId} {
+      allow read: if isSignedIn() &&
+        (request.auth.uid == courierId || isAdmin());
+
+      allow create: if isSignedIn() &&
+        request.auth.uid == courierId &&
+        request.resource.data.status == 'pending' &&
+        request.resource.data.isAvailable == false &&
+        request.resource.data.totalDeliveries == 0;
+
+      allow update: if isSignedIn() &&
+        (request.auth.uid == courierId || isAdmin());
+
+      allow delete: if isAdmin();
+    }
+
+    match /deals_wallets/{userId} {
+      allow read: if isSignedIn() &&
+        (request.auth.uid == userId || isAdmin());
+
+      allow create, update, delete: if isAdmin();
+
+      match /transactions/{transactionId} {
+        allow read: if isSignedIn() &&
+          (request.auth.uid == userId || isAdmin());
+
+        allow create, update, delete: if isAdmin();
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "flash-deals-abidjan",
+          "appId": "1:884874548858:android:9aa8ee9bf275afd9bd4dc3",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "flash-deals-abidjan",
+          "appId": "1:884874548858:ios:4aee55d25a0c045dbd4dc3",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "flash-deals-abidjan",
+          "configurations": {
+            "android": "1:884874548858:android:9aa8ee9bf275afd9bd4dc3",
+            "ios": "1:884874548858:ios:4aee55d25a0c045dbd4dc3",
+            "macos": "1:884874548858:ios:4aee55d25a0c045dbd4dc3",
+            "web": "1:884874548858:web:ba39304b2d185ea1bd4dc3",
+            "windows": "1:884874548858:web:c6aaef886d988facbd4dc3"
+          }
+        }
+      }
+    }
+  }
+}

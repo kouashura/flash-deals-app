@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Initialisation Paiement Pro</title>
+  <script src="https://www.paiementpro.net/webservice/onlinepayment/js/paiementpro.v1.0.2.js"></script>
+</head>
+<body>
+  <script>
+    window.initPayment = function(merchantId, params) {
+      try {
+        let paiementPro = new PaiementPro(merchantId);
+        
+        paiementPro.amount = parseInt(params.amount);
+        paiementPro.channel = params.channel;
+        paiementPro.referenceNumber = params.referenceNumber;
+        paiementPro.customerEmail = params.customerEmail;
+        paiementPro.customerFirstName = params.customerFirstName;
+        paiementPro.customerLastname = params.customerLastname;
+        paiementPro.customerPhoneNumber = params.customerPhoneNumber;
+        paiementPro.description = params.description;
+        paiementPro.countryCurrencyCode = '952';
+        paiementPro.returnURL = params.returnURL || '';
+        paiementPro.notificationURL = params.notificationURL || '';
+
+        paiementPro.getUrlPayment().then(function() {
+          if (paiementPro.success) {
+            PaymentChannel.postMessage(JSON.stringify({
+              success: true,
+              url: paiementPro.url
+            }));
+          } else {
+            PaymentChannel.postMessage(JSON.stringify({
+              success: false,
+              error: paiementPro.error || 'Erreur inconnue'
+            }));
+          }
+        }).catch(function(error) {
+          PaymentChannel.postMessage(JSON.stringify({
+            success: false,
+            error: error.toString()
+          }));
+        });
+      } catch (e) {
+        PaymentChannel.postMessage(JSON.stringify({
+          success: false,
+          error: e.toString()
+        }));
+      }
+    };
+  </script>
+</body>
+</html>
