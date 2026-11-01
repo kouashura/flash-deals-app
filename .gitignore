@@ -61,3 +61,7 @@ firestore.rules.save
 **/*.keystore
 android/key.properties
 android/keystore/
+
+# Fichiers de backup
+*.bak
+*.bak.*
