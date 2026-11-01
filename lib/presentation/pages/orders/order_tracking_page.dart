@@ -619,10 +619,10 @@ class OrderTrackingPage extends StatelessWidget {
       ),
       child: Row(
         children: [
-          CircleAvatar(
+          const CircleAvatar(
             radius: 22,
             backgroundColor: AppColors.primary,
-            child: const Icon(Icons.person, color: Colors.white, size: 22),
+            child: Icon(Icons.person, color: Colors.white, size: 22),
           ),
           const SizedBox(width: 10),
           const Expanded(

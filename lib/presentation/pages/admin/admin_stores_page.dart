@@ -307,9 +307,10 @@ class _AdminStoresPageState extends State<AdminStoresPage> {
                                 await _firestore.addStore(data);
                               } else {
                                 await _firestore.updateStore(
-                                    existing['id'], data);
+                                    existing['id'] as String, data);
                               }
                               if (!mounted) return;
+                              if (!sheetContext.mounted) return;
                               Navigator.pop(sheetContext);
                               AppSnackbar.success(
                                 context,

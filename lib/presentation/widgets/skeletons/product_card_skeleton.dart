@@ -17,25 +17,25 @@ class ProductCardSkeleton extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Image
-          const ShimmerBox(
+          ShimmerBox(
             height: 100,
             borderRadius: 12,
           ),
           Padding(
-            padding: const EdgeInsets.all(10),
+            padding: EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const ShimmerBox(height: 12, width: 100),
-                const SizedBox(height: 6),
-                const ShimmerBox(height: 10, width: 70),
-                const SizedBox(height: 10),
+                ShimmerBox(height: 12, width: 100),
+                SizedBox(height: 6),
+                ShimmerBox(height: 10, width: 70),
+                SizedBox(height: 10),
                 Row(
-                  children: const [
+                  children: [
                     ShimmerBox(height: 14, width: 50),
                     SizedBox(width: 6),
                     ShimmerBox(height: 10, width: 40),

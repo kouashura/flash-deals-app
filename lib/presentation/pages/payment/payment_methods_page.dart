@@ -85,15 +85,15 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                         color: AppColors.primary.withOpacity(0.2),
                       ),
                     ),
-                    child: Row(
+                    child: const Row(
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.lock_outline,
                           color: AppColors.primary,
                           size: 20,
                         ),
-                        const SizedBox(width: 8),
-                        const Expanded(
+                        SizedBox(width: 8),
+                        Expanded(
                           child: Text(
                             'Paiement 100% sécurisé et en ligne',
                             style: TextStyle(

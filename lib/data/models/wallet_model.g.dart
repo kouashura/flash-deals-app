@@ -29,7 +29,7 @@ _$WalletTransactionImpl _$$WalletTransactionImplFromJson(
       type: json['type'] as String,
       amount: (json['amount'] as num).toDouble(),
       description: json['description'] as String,
-      date: const TimestampConverter().fromJson(json['date']) ?? DateTime.now(),
+      date: DateTime.parse(json['date'] as String),
       status: json['status'] as String,
     );
 

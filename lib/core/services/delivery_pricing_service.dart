@@ -15,24 +15,24 @@ class DeliveryPricingService {
   /// [perKgBeyondMin] : tarif par kg au-delà de 5 kg
   static final Map<String, ZonePricing> zones = {
     // Zone 1 : Centre / Proche
-    'Cocody': ZonePricing(baseFee: 800, perKgBeyondMin: 150),
-    'Plateau': ZonePricing(baseFee: 800, perKgBeyondMin: 150),
-    'Adjamé': ZonePricing(baseFee: 800, perKgBeyondMin: 150),
+    'Cocody': const ZonePricing(baseFee: 800, perKgBeyondMin: 150),
+    'Plateau': const ZonePricing(baseFee: 800, perKgBeyondMin: 150),
+    'Adjamé': const ZonePricing(baseFee: 800, perKgBeyondMin: 150),
     
     // Zone 2 : Périphérie Ouest / Nord
-    'Yopougon': ZonePricing(baseFee: 1200, perKgBeyondMin: 200),
-    'Abobo': ZonePricing(baseFee: 1200, perKgBeyondMin: 200),
-    'Treichville': ZonePricing(baseFee: 1200, perKgBeyondMin: 200),
+    'Yopougon': const ZonePricing(baseFee: 1200, perKgBeyondMin: 200),
+    'Abobo': const ZonePricing(baseFee: 1200, perKgBeyondMin: 200),
+    'Treichville': const ZonePricing(baseFee: 1200, perKgBeyondMin: 200),
     
     // Zone 3 : Sud
-    'Marcory': ZonePricing(baseFee: 1000, perKgBeyondMin: 180),
-    'Koumassi': ZonePricing(baseFee: 1000, perKgBeyondMin: 180),
-    'Port-Bouët': ZonePricing(baseFee: 1000, perKgBeyondMin: 180),
+    'Marcory': const ZonePricing(baseFee: 1000, perKgBeyondMin: 180),
+    'Koumassi': const ZonePricing(baseFee: 1000, perKgBeyondMin: 180),
+    'Port-Bouët': const ZonePricing(baseFee: 1000, perKgBeyondMin: 180),
     
     // Zone 4 : Est / Éloigné
-    'Bingerville': ZonePricing(baseFee: 1500, perKgBeyondMin: 250),
-    'Riviera': ZonePricing(baseFee: 1500, perKgBeyondMin: 250),
-    'Angré': ZonePricing(baseFee: 1500, perKgBeyondMin: 250),
+    'Bingerville': const ZonePricing(baseFee: 1500, perKgBeyondMin: 250),
+    'Riviera': const ZonePricing(baseFee: 1500, perKgBeyondMin: 250),
+    'Angré': const ZonePricing(baseFee: 1500, perKgBeyondMin: 250),
   };
 
   /// Calcule les frais de livraison selon le poids et la zone

@@ -244,10 +244,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
           );
           if (result != null) {
             setState(() {
-              _address = result['address'];
-              _phone = result['phone'];
-              _latitude = result['latitude'];
-              _longitude = result['longitude'];
+              _address = result['address'] as String?;
+              _phone = result['phone'] as String?;
+              _latitude = (result['latitude'] as num?)?.toDouble();
+              _longitude = (result['longitude'] as num?)?.toDouble();
             });
           }
         },
@@ -470,10 +470,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppColors.success.withOpacity(0.3)),
       ),
-      child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
               Icon(Icons.info_outline, color: AppColors.success),
               SizedBox(width: 8),
@@ -486,13 +486,13 @@ class _CheckoutPageState extends State<CheckoutPage> {
               ),
             ],
           ),
-          const SizedBox(height: 8),
-          const Text(
+          SizedBox(height: 8),
+          Text(
             'Vous récupérez votre commande directement dans nos entrepôts partenaires. Des frais de préparation de 1 000 FCFA s\'appliquent.',
             style: TextStyle(fontSize: 12, color: Colors.black87),
           ),
-          const SizedBox(height: 8),
-          const Text(
+          SizedBox(height: 8),
+          Text(
             '📍 Point de retrait : Entrepôt central, Zone 4, Abidjan',
             style: TextStyle(
               fontSize: 12,

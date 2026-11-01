@@ -1,10 +1,20 @@
 include: package:flutter_lints/flutter.yaml
 
+analyzer:
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+  errors:
+    use_build_context_synchronously: warning
+    unawaited_futures: warning
+    avoid_print: warning
+
 linter:
   rules:
-    prefer_const_constructors: false
-    prefer_const_declarations: false
-    prefer_const_literals_to_create_immutables: false
-    use_build_context_synchronously: false
+    use_build_context_synchronously: true
+    prefer_const_constructors: true
+    prefer_const_declarations: true
+    prefer_const_literals_to_create_immutables: true
     use_super_parameters: false
     library_private_types_in_public_api: false

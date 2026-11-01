@@ -146,7 +146,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 if (v == null) return;
                 setState(() => _language = v);
                 await PreferencesService.setLanguage(v);
-                if (mounted) {
+                if (context.mounted) {
                   AppSnackbar.info(context, 'Langue modifiée');
                 }
               },
@@ -164,7 +164,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 if (v == null) return;
                 setState(() => _currency = v);
                 await PreferencesService.setCurrency(v);
-                if (mounted) {
+                if (context.mounted) {
                   AppSnackbar.info(context, 'Devise modifiée');
                 }
               },
@@ -235,7 +235,7 @@ class _SettingsPageState extends State<SettingsPage> {
               onChanged: (v) async {
                 setState(() => _biometric = v);
                 await PreferencesService.setBiometric(v);
-                if (v && mounted) {
+                if (v && context.mounted) {
                   AppSnackbar.info(
                       context, 'Fonctionnalité bientôt disponible');
                 }

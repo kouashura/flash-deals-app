@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../data/models/wallet_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -304,7 +305,7 @@ class WalletScreen extends ConsumerWidget {
 }
 
 class _BalanceCard extends StatelessWidget {
-  final dynamic wallet;
+  final WalletModel wallet;
   const _BalanceCard({required this.wallet});
 
   @override
@@ -358,7 +359,7 @@ class _BalanceCard extends StatelessWidget {
 }
 
 class _TransactionTile extends StatelessWidget {
-  final dynamic transaction;
+  final WalletTransaction transaction;
   const _TransactionTile({required this.transaction});
 
   @override

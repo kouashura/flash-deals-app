@@ -15,14 +15,14 @@ class DeliveryBanner extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppColors.success.withOpacity(0.3)),
       ),
-      child: Row(
+      child: const Row(
         children: [
-          const Icon(Icons.delivery_dining, color: AppColors.success, size: 28),
-          const SizedBox(width: 12),
+          Icon(Icons.delivery_dining, color: AppColors.success, size: 28),
+          SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
                   'Livraison Abidjan',
                   style: TextStyle(

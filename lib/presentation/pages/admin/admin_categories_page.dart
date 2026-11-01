@@ -264,9 +264,10 @@ class _AdminCategoriesPageState extends State<AdminCategoriesPage> {
                                 await _firestore.addCategory(data);
                               } else {
                                 await _firestore.updateCategory(
-                                    existing['id'], data);
+                                    existing['id'] as String, data);
                               }
                               if (!mounted) return;
+                              if (!sheetContext.mounted) return;
                               Navigator.pop(sheetContext);
                               AppSnackbar.success(
                                 context,

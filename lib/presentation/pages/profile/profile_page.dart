@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +12,7 @@ import '../../../core/services/image_upload_service.dart';
 import '../../blocs/auth/auth_bloc.dart';
 import '../../blocs/auth/auth_event.dart';
 import '../../blocs/auth/auth_state.dart';
+import '../../../domain/entities/user.dart';
 import '../../widgets/snackbars/app_snackbar.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -321,9 +322,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     color: AppColors.primary.withOpacity(0.08),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       Icon(Icons.card_giftcard_rounded,
                           color: AppColors.primary, size: 16),
                       SizedBox(width: 8),
@@ -598,7 +599,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildHeader(BuildContext context, user) {
+  Widget _buildHeader(BuildContext context, User user) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(20, 8, 20, 64),
@@ -619,7 +620,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: GestureDetector(
                   onTap: () async {
                     final url = await _uploadService.pickAndUpload();
-                    if (!mounted) return;
+                    if (!context.mounted) return;
                     if (url != null) {
                       setState(() => _avatarUrl = url);
 
@@ -636,7 +637,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         debugPrint('❌ Erreur sauvegarde avatar: $e');
                       }
 
-                      if (!mounted) return;
+                      if (!context.mounted) return;
                       AppSnackbar.success(context, 'Avatar mis à jour');
                     }
                   },
@@ -758,12 +759,12 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildStatsCard(user) {
+  Widget _buildStatsCard(User user) {
     final stats = [
-      _Stat(Icons.receipt_long_rounded, '12', 'Commandes', Colors.blue),
+      const _Stat(Icons.receipt_long_rounded, '12', 'Commandes', Colors.blue),
       _Stat(Icons.card_giftcard_rounded, '${user.loyaltyPoints}', 'Points',
           AppColors.primary),
-      _Stat(Icons.savings_rounded, '24K', 'Économies', AppColors.success),
+      const _Stat(Icons.savings_rounded, '24K', 'Économies', AppColors.success),
     ];
 
     return Container(
@@ -992,7 +993,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  void _editProfile(BuildContext context, user) {
+  void _editProfile(BuildContext context, User user) {
     final nameCtrl = TextEditingController(text: user.fullName);
     final emailCtrl = TextEditingController(text: user.email);
     final phoneCtrl = TextEditingController(text: user.phone);
@@ -1065,12 +1066,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                     );
                                 await Future.delayed(
                                     const Duration(milliseconds: 500));
-                                if (!mounted) return;
+                                if (!context.mounted) return;
                                 Navigator.pop(sheetContext);
                                 AppSnackbar.success(
                                     context, 'Profil mis à jour');
                               } catch (e) {
-                                if (!mounted) return;
+                                if (!context.mounted) return;
                                 AppSnackbar.error(context, 'Erreur : $e');
                               }
                             },
